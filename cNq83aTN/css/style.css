@@ -1,0 +1,668 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Custom Properties, update these for your own design */
+
+:root {
+    --ff-primary: 'Lora', serif;
+    --ff-secondary: 'Roboto Slab', serif;
+    
+    --fw-reg: 400;
+    --fw-bold: 700;
+    
+    --clr-light: #fff;
+    --clr-dark: #303030;
+    --clr-accent: #f8333c;
+    
+    --fs-h1: 3rem;
+    --fs-h2: 2.25rem;
+    --fs-h3: 1.25rem;
+    --fs-body: 1rem;
+    
+    --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.25),
+          0.125em 0.125em 0.25em rgba(0,0,0,.15);
+}
+
+@media (min-width: 800px) {
+    :root {
+        --fs-h1: 4.5rem;
+        --fs-h2: 3.75rem;
+        --fs-h3: 1.5rem;
+        --fs-body: 1.125rem;
+    }
+}
+
+/* General styles */
+
+/* endable this to add smooth scrolling */
+/* html {
+    scroll-behavior: smooth;
+} */
+
+
+body {
+    background: var(--clr-light);
+    color: var(--clr-dark);
+    margin: 0;
+    font-family: var(--ff-primary);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    background-color: #98c496f9;
+}
+
+section {
+    padding: 5em 2em;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+strong { font-weight: var(--fw-bold) }
+
+:focus {
+    outline: 3px solid var(--clr-accent);
+    outline-offset: 3px;
+}
+
+/* Buttons */
+
+.btn {
+    display: inline-block;
+    padding: .5em 2.5em;
+    background: var(--clr-accent);
+    color: var(--clr-dark);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: var(--fw-bold);
+    transition: transform 200ms ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+/* Typography */
+
+h1,
+h2,
+h3 {
+    line-height: 1;
+    margin: 0;
+}
+
+h1 { font-size: var(--fs-h1) }
+h2 { font-size: var(--fs-h2) }
+h3 { font-size: var(--fs-h3) }
+
+
+.section__title {
+    margin-bottom: .25em;
+}
+
+.section__title--intro {
+    font-weight: var(--fw-reg);
+}
+
+.section__title--intro strong {
+    display: block;
+}
+
+.section__subtitle {
+    margin: 0;
+    font-size: var(--fs-h3);
+}
+
+.section__subtitle--intro,
+.section__subtitle--about {
+    background: var(--clr-accent);
+    padding: .25em 1em;
+    font-family: var(--ff-secondary);
+    margin-bottom: 1em;
+}
+
+.section__subtitle--work {
+    color: var(--clr-accent);
+    font-weight: var(--fw-bold);
+    margin-bottom: 2em;
+}
+
+/* header */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.logo {
+    max-width: 100px;
+}
+
+.nav {
+    position: fixed;
+    background: var(--clr-dark);
+    color: var(--clr-light);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    
+    transform: translateX(100%);
+    transition: transform 250ms cubic-bezier(.5, 0, .5, 1);
+}
+
+.nav__list {
+    list-style: none;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav__link {
+    color: inherit;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-h2);
+    text-decoration: none;
+}
+
+.nav__link:hover {
+    color: var(--clr-accent);
+}
+
+.nav-toggle {
+    padding: .5em;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    z-index: 1000;
+}
+
+.nav-open .nav {
+    transform: translateX(0);
+}
+
+.nav-open .nav-toggle {
+    position: fixed;
+}
+
+.nav-open .hamburger {
+    transform: rotate(.625turn);
+}
+
+.nav-open .hamburger::before {
+    transform: rotate(90deg) translateX(-6px);
+}
+
+.nav-open .hamburger::after {
+    opacity: 0;
+}
+
+
+
+
+
+
+.hamburger {
+    display: block;
+    position: relative;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    background: var(--clr-accent);
+    width: 2em;
+    height: 3px;
+    border-radius: 1em;
+    transition: transform 250ms ease-in-out;
+}
+
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.hamburger::before { top: 6px; }
+.hamburger::after { bottom: 6px; }
+
+
+/*  Intro section  */
+
+.intro {
+    position: relative;
+}
+
+.intro__img {
+    box-shadow: var(--bs);
+}
+
+.section__subtitle--intro {
+    display: inline-block;
+}
+
+@media (min-width: 600px) {
+    .intro {
+        display: grid;
+        width: min-content;
+        margin: 0 auto;
+        grid-column-gap: 1em;
+        grid-template-areas: 
+            "img title"
+            "img subtitle";
+        grid-template-columns: min-content max-content;
+    }
+    
+    .intro__img {
+        grid-area: img;
+        min-width: 250px;
+        position: relative;
+        z-index: 2;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Adding transition for smoother effect */
+      }
+      
+      .intro__img:hover {
+        /* Adding glow effect and zoom-in effect on hover */
+        box-shadow: 0 0 20px rgba(0, 0, 255, 0.8); /* Adjust the shadow color and spread as needed */
+        transform: scale(1.1); /* Zoom in effect */
+      }
+      
+    
+    .section__subtitle--intro {
+        align-self: start;
+        grid-column: -1 / 1;
+        grid-row: 2;
+        text-align: right;
+        position: relative;
+        left: -1.5em;
+        width: calc(100% + 1.5em);
+    }
+}
+
+
+
+/*  My services section  */
+
+.my-services {
+    background-color: var(--clr-dark);
+    background-image: url(../img/services-bg.jpg);
+    background-size: cover;
+    /* background-blend-mode: multiply; */
+    color: var(--clr-light);
+    text-align: center;
+}
+
+.section__title--services {
+    color: var(--clr-accent);
+    position: relative;
+}
+
+.section__title--services::after {
+    content: '';
+    display: block;
+    width: 2em;
+    height: 1px;
+    margin: 0.5em auto 1em;
+    background: var(--clr-light);
+    opacity: 0.25;
+}
+
+.services {
+    margin-bottom: 4em;
+}
+
+.service {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+@media (min-width: 800px) {
+    .services {
+        display: flex;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .service + .service {
+        margin-left: 2em;
+    }
+}
+
+
+.about-me {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.about-me__img {
+    box-shadow: var(--bs);
+}
+
+@media (min-width: 600px) {
+    .about-me {
+        display: grid;
+        grid-template-columns: 1fr 200px;
+        grid-template-areas: 
+            "title img"
+            "subtitle img"
+            "text img";
+        grid-column-gap: 2em;
+    }
+    
+    .section__title--about {
+        grid-area: title;
+    }
+    
+    .section__subtitle--about {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        position: relative;
+        left: -1em;
+        width: calc(100% + 2em);
+        padding-left: 1em;
+        padding-right: calc(200px + 4em);
+    }
+    
+    .about-me__img {
+        grid-area: img;
+        position: relative;
+        z-index: 2;
+        /* Other styles you have */
+      
+        
+        box-shadow: 0 0 10px rgba(0, 0, 255, 0); 
+        transition: box-shadow 0.4s ease; 
+      }
+      
+      .about-me__img:hover {
+        box-shadow: 0 0 20px rgba(0, 0, 255, 0.8);
+        transform: scale(1.1);
+      }
+      
+        
+    }
+    
+
+
+/* My Work */
+
+.my-work {
+    background-color: var(--clr-dark);
+    color: var(--clr-light);
+    text-align: center;    
+}
+
+.portfolio {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.portfolio__item {
+    background: var(--clr-accent);
+    overflow: hidden;
+}
+
+.portfolio__img {
+    transition: 
+        transform 750ms cubic-bezier(.5, 0, .5, 1),
+        opacity 250ms linear;
+        height: 200px;
+}
+
+.portfolio__item:focus {
+    position: relative;
+    z-index: 2;
+}
+
+.portfolio__img:hover,
+.portfolio__item:focus .portfolio__img {
+    transform: scale(1.2);
+    opacity: .5;
+}
+
+
+
+/* footer */
+
+.footer {
+    background: #111;
+    color: var(--clr-accent);
+    text-align: center;
+    padding: 2.5em 0;
+    font-size: var(--fs-h3);
+
+}
+
+.footer a { 
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer__link {
+    font-weight: var(--fw-bold);
+}
+
+.footer__link:hover,
+.social-list__link:hover {
+    opacity: .7;
+}
+
+.footer__link:hover {
+    text-decoration: underline;
+}
+
+.social-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 2em 0 0;
+    padding: 0;
+}
+
+.social-list__item {
+    margin: 0 .5em;
+}
+
+.social-list__link {
+    padding: .5em;
+}
+
+
+/* Individual portfolio item styles */
+
+.portfolio-item-individual {
+    padding: 0 2em 2em;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.portfolio-item-individual p {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*comments CSS
+
+line 1-70
+
+The CSS code provided defines custom properties, general styles, and media queries for a web page layout. Here's a breakdown of what each section does:
+
+Custom Properties:
+
+Defines custom properties such as fonts, font weights, colors, and font sizes. These properties can be reused throughout the stylesheet to maintain consistency and make it easier to update styles.
+Media Queries:
+
+Adjusts font sizes for different screen sizes. For screens wider than 800px, it increases the font sizes for headers and body text.
+General Styles:
+
+Sets basic styles for the entire document.
+Defines the background color, text color, margin, font family, font size, and line height for the body.
+Sets padding for sections.
+Defines the maximum width for images within their container.
+Sets the font weight for <strong> elements.
+Defines a custom outline style for focused elements.
+Commented-out Code:
+
+Contains a commented-out section that enables smooth scrolling for the HTML document. This can be uncommented if smooth scrolling behavior is desired.
+Other:
+
+There's an unfinished summary selector at the end of the CSS code. It appears to be incomplete or mistakenly added.
+Overall, this CSS code provides a basic foundation for styling a web page with customizable fonts, colors, and responsive design for different screen sizes.
+
+line 72-89
+
+The CSS code provided defines styles for buttons. Here's a breakdown of what each part does:
+
+Button Styles (btn class):
+
+display: inline-block;: Makes the button behave like a block element but allows other elements to be beside it.
+padding: .5em 2.5em;: Sets padding inside the button, adjusting both vertically and horizontally.
+background: var(--clr-accent);: Sets the background color of the button to a custom property named --clr-accent.
+color: var(--clr-dark);: Sets the text color of the button to a custom property named --clr-dark.
+text-decoration: none;: Removes any text decoration, such as underlines, from the button text.
+cursor: pointer;: Changes the cursor to a pointer when hovering over the button, indicating it is clickable.
+font-size: .8rem;: Sets the font size of the button text to 0.8rem.
+text-transform: uppercase;: Transforms the text to uppercase.
+letter-spacing: 2px;: Sets the spacing between letters in the button text to 2 pixels.
+font-weight: var(--fw-bold);: Sets the font weight of the button text to a custom property named --fw-bold.
+transition: transform 200ms ease-in-out;: Specifies that the button should have a smooth transition effect on the transform property over 200 milliseconds with an ease-in-out timing function.
+Button Hover Styles (btn:hover):
+
+transform: scale(1.1);: Enlarges the button slightly (by 10%) when hovered over, creating a visual feedback effect.
+The summary selector at the end of the CSS code appears to be incomplete or unrelated to the button styles provided. If you need assistance with the summary selector, please provide more context or details.
+
+line 89-135
+
+The provided CSS code defines typography styles for headings and section titles/subtitles, along with some additional styles. Here's a breakdown of each part:
+
+Typography Styles:
+
+h1, h2, h3: Sets the line height to 1 (normal), removes any default margins, and specifies font sizes using custom properties.
+h1 { font-size: var(--fs-h1) }: Sets the font size of <h1> elements using the custom property --fs-h1.
+h2 { font-size: var(--fs-h2) }: Sets the font size of <h2> elements using the custom property --fs-h2.
+h3 { font-size: var(--fs-h3) }: Sets the font size of <h3> elements using the custom property --fs-h3.
+Section Title Styles (section__title):
+
+margin-bottom: .25em;: Adds a small bottom margin to section titles.
+Section Title Modifier Styles (section__title--intro):
+
+font-weight: var(--fw-reg);: Sets the font weight of section titles with the class section__title--intro using the custom property --fw-reg.
+Section Subtitle Styles (section__subtitle):
+
+margin: 0;: Removes default margins from section subtitles.
+font-size: var(--fs-h3);: Sets the font size of section subtitles using the custom property --fs-h3.
+Section Subtitle Modifier Styles (section__subtitle--intro, section__subtitle--about, section__subtitle--work):
+
+section__subtitle--intro, .section__subtitle--about: Adds background color, padding, changes font family, and adjusts margin bottom for subtitles with these classes.
+section__subtitle--work: Changes the color and font weight of subtitles with this class, and increases the margin bottom.
+Summary Selector:
+
+The CSS code ends with the summary selector, which is currently empty. If you intended to style <summary> elements, you can add styles within this selector.
+These styles collectively define the typography for headings, section titles, and subtitles, along with additional styling for specific cases like introduction and work section subtitles.
+
+line 134-214
+
+The provided CSS code defines styles for a header section, including a navigation menu and a toggle button. Here's a breakdown of each part:
+
+Header Styles (header):
+
+Uses flexbox to arrange items evenly along the main axis.
+Adds padding to create space around the header content.
+Logo Styles (logo):
+
+Sets a maximum width for the logo to ensure it doesn't exceed a certain size.
+Navigation Styles (nav):
+
+Sets the navigation menu to a fixed position with a dark background and light text color.
+Positions the navigation menu to cover the entire viewport horizontally and vertically (top, bottom, left, right).
+Initially hides the navigation menu off-screen using transform: translateX(100%);.
+Uses a transition effect for smooth animation when showing/hiding the navigation menu.
+Navigation List Styles (nav__list):
+
+Styles the navigation list to be a flex container with items evenly spaced along the main axis and centered vertically.
+Navigation Link Styles (nav__link):
+
+Sets the color and font size for navigation links.
+Adjusts font weight and removes underlines for links.
+Changes link color on hover to an accent color.
+Navigation Toggle Button Styles (nav-toggle):
+
+Styles the navigation toggle button, which is used to show/hide the navigation menu.
+Sets padding, background, border, and cursor properties.
+Positions the button at the top right corner of the header.
+Navigation Open Styles (.nav-open):
+
+Defines styles that apply when the navigation menu is open.
+Moves the navigation menu into view by resetting the transform property to translateX(0).
+Changes the position of the toggle button when the navigation is open for better visibility.
+Rotates and adjusts the appearance of the hamburger icon used for the toggle button.
+Summary Selector (summary):
+
+The CSS code ends with the summary selector, which appears to be empty or unrelated to the header styles provided.
+Overall, these styles create a header section with a navigation menu that can be toggled open and closed using a button.
+
+line 214-504
+
+The provided CSS code includes styles for various sections of a webpage, including header, introduction section, services section, about me section, my work section, footer, and individual portfolio item styles. Here's a breakdown of each section:
+
+Header Styles:
+
+Defines styles for the header section, including navigation menu and toggle button.
+Hamburger Icon Styles (hamburger):
+
+Styles the hamburger icon used for the navigation toggle button.
+Intro Section Styles (intro):
+
+Defines styles for the introduction section, including image and subtitle.
+My Services Section Styles (my-services):
+
+Styles the section displaying services, including background color and image.
+About Me Section Styles (about-me):
+
+Defines styles for the about me section, including grid layout and image effects.
+My Work Section Styles (my-work):
+
+Styles the section displaying the portfolio of work items.
+Footer Styles (footer):
+
+Defines styles for the footer section, including background color, text alignment, and links.
+Individual Portfolio Item Styles (portfolio-item-individual):
+
+Styles for individual portfolio items, including padding, maximum width, and margins.
+Summary Selector (summary):
+
+The CSS code ends with the summary selector, which appears to be empty or unrelated to the styles provided.
+These styles collectively create a visually appealing and well-organized layout for the webpage, with consistent design elements across different sections. If you have any specific questions or need further clarification on any part of the code, feel free to ask!
+
+*/
+
+
+
+
+
+
+
+
+
